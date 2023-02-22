@@ -38,6 +38,8 @@ const App = () => {
       <Statics name='Good' value={good} />
       <Statics name='Neutral' value={neutral} />
       <Statics name='Bad' value={bad} />
+      <Statics name='Average' value={(good - bad) / (good + bad)} />
+      <Statics name='Positive' value={good / (good + bad) * 100} />
     </div>
   )
 }

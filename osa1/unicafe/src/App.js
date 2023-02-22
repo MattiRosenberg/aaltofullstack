@@ -21,11 +21,18 @@ const Statics = ({ good, neutral, bad }) => {
   } else {
     return (
       <div>
-        <Static name="Good" value={good} />
-        <Static name="Neutral" value={neutral} />
-        <Static name="Bad" value={bad} />
-        <Static name="Average" value={(good - bad) / (good + neutral + bad)} />
-        <Static name="Positive" value={(good / (good + bad)) * 100} />
+        <table>
+          <tbody>
+            <Static name="Good" value={good} />
+            <Static name="Neutral" value={neutral} />
+            <Static name="Bad" value={bad} />
+            <Static
+              name="Average"
+              value={(good - bad) / (good + neutral + bad)}
+            />
+            <Static name="Positive" value={(good / (good + bad)) * 100} />
+          </tbody>
+        </table>
       </div>
     );
   }
@@ -33,11 +40,10 @@ const Statics = ({ good, neutral, bad }) => {
 
 const Static = ({ name, value }) => {
   return (
-    <div>
-      <p>
-        {name} {value}
-      </p>
-    </div>
+    <tr>
+      <th>{name}</th>
+      <th>{value}</th>
+    </tr>
   );
 };
 

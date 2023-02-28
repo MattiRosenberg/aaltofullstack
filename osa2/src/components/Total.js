@@ -1,6 +1,6 @@
 const Total = (props) => {
   console.log(props)
-  return <p>total of {props.total} exercises</p>;
+  return <h3>total of {props.total} exercises</h3>;
 };
 
 export default Total;

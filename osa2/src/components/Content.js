@@ -1,17 +1,19 @@
 import Part from './Part';
 import Total from './Total';
+import Title from './Title';
 
-const Content = (props) => {
-  console.log('Content: ', props);
+const Content = ({ course }) => {
+  console.log('Content: ', course);
 
-  const total = props.parts
+  const total = course.parts
     .map((part) => part.exercises)
     .reduce((previous, current) => previous + current, 0);
 
   return (
     <div>
-      {props.parts.map((note) => (
-        <Part key={note.id} part={note} />
+      <Title title={course.name} />
+      {course.parts.map((part) => (
+        <Part key={part.id} part={part} />
       ))}
       <Total total={total} />
     </div>

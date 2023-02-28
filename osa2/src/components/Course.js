@@ -1,12 +1,14 @@
 import Header from './Header';
 import Content from './Content';
 
-const Course = (props) => {
-  console.log("Course: ", props)
+const Course = ({ courses }) => {
+  console.log('Course: ', courses);
   return (
     <div>
-      <Header header={props.course.name} />
-      <Content parts={props.course.parts} />
+      <Header header={'Web development curriculum'} />
+      {courses.map((course) => (
+        <Content key={course.id} course={course} />
+      ))}
     </div>
   );
 };

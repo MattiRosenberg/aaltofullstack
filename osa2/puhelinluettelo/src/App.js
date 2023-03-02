@@ -3,6 +3,7 @@ import axios from 'axios';
 import Person from './components/Person';
 import Filter from './components/Filter';
 import PersonForm from './components/PersonForm';
+import personService from './services/person';
 
 const App = () => {
   const [persons, setPersons] = useState([
@@ -17,15 +18,11 @@ const App = () => {
     setNewPhonenumber(event.target.value);
   const handleFilterChange = (event) => setNewFilter(event.target.value);
 
-  const hook = () => {
-    axios.get('http://localhost:3001/persons').then((response) => {
-      const persons = response.data;
-      setPersons(persons);
-      console.log(persons);
+  useEffect(() => {
+    personService.getAll().then(initialPersons => {
+      setPersons(initialPersons)
     });
-  };
-
-  useEffect(hook, []);
+  }, []);
 
   return (
     <div>

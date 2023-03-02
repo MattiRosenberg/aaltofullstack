@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 import Person from './components/Person';
 import Filter from './components/Filter';
 import PersonForm from './components/PersonForm';
@@ -15,6 +16,16 @@ const App = () => {
   const handleNewPhonenumberChange = (event) =>
     setNewPhonenumber(event.target.value);
   const handleFilterChange = (event) => setNewFilter(event.target.value);
+
+  const hook = () => {
+    axios.get('http://localhost:3001/persons').then((response) => {
+      const persons = response.data;
+      setPersons(persons);
+      console.log(persons);
+    });
+  };
+
+  useEffect(hook, []);
 
   return (
     <div>

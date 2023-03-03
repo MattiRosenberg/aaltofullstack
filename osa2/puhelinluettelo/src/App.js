@@ -7,7 +7,7 @@ import personService from './services/person';
 
 const App = () => {
   const [persons, setPersons] = useState([
-    { name: 'Arto Hellas', phonenumber: '001' },
+    { name: 'Arto Hellas', number: '001' },
   ]);
   const [newName, setNewName] = useState('');
   const [newPhonenumber, setNewPhonenumber] = useState('');
@@ -18,11 +18,13 @@ const App = () => {
     setNewPhonenumber(event.target.value);
   const handleFilterChange = (event) => setNewFilter(event.target.value);
 
-  useEffect(() => {
-    personService.getAll().then(initialPersons => {
-      setPersons(initialPersons)
+  const hook = () => {
+    personService.getAll().then((initialPersons) => {
+      setPersons(initialPersons);
     });
-  }, []);
+  };
+
+  useEffect(hook, []);
 
   return (
     <div>

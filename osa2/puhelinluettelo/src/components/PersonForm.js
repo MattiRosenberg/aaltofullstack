@@ -4,7 +4,7 @@ const PersonForm = (props) => {
   const addName = (event) => {
     const newPerson = {
       name: props.newName,
-      phonenumber: props.newPhonenumber,
+      number: props.newPhonenumber,
     };
 
     event.preventDefault();

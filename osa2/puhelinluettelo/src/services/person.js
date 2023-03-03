@@ -21,9 +21,15 @@ const remove = id => {
   return request.then(response => response.data)
 }
 
+const replace = person => {
+  const request = axios.put(`${baseUrl}/${person.id}`, person)
+  return request.then(response => response.data);
+}
+
 export default {
   getAll,
   create,
   update,
-  remove
+  remove,
+  replace
 }

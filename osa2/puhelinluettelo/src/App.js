@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import Person from './components/Person';
 import Filter from './components/Filter';
 import PersonForm from './components/PersonForm';
 import personService from './services/person';
+import Notification from './components/Notification';
 
 const App = () => {
   const [persons, setPersons] = useState([
@@ -12,23 +12,25 @@ const App = () => {
   const [newName, setNewName] = useState('');
   const [newPhonenumber, setNewPhonenumber] = useState('');
   const [newFilter, setNewFilter] = useState('');
+  const [infoNotification, setInfoNotification] = useState(null);
 
   const handleNewNameChange = (event) => setNewName(event.target.value);
   const handleNewPhonenumberChange = (event) =>
     setNewPhonenumber(event.target.value);
   const handleFilterChange = (event) => setNewFilter(event.target.value);
 
-  const hook = () => {
+  const updateList = () => {
     personService.getAll().then((initialPersons) => {
       setPersons(initialPersons);
     });
   };
 
-  useEffect(hook, []);
+  useEffect(updateList, []);
 
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={infoNotification} />
       <Filter
         newFilter={newFilter}
         handleFilterChange={handleFilterChange}
@@ -44,9 +46,15 @@ const App = () => {
         setPersons={setPersons}
         setNewName={setNewName}
         setNewPhonenumber={setNewPhonenumber}
+        setPersonAddedInfo={setInfoNotification}
       />
       <h2>Numbers</h2>
-      <Person persons={persons} newFilter={newFilter} />
+      <Person
+        persons={persons}
+        newFilter={newFilter}
+        updateList={updateList}
+        setErrorMessage={setInfoNotification}
+      />
     </div>
   );
 };

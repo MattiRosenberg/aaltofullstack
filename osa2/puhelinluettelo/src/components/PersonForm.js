@@ -1,20 +1,38 @@
+import person from '../services/person';
 import personServices from '../services/person';
 
 const PersonForm = (props) => {
   const addName = (event) => {
+    event.preventDefault();
+
     const newPerson = {
       name: props.newName,
       number: props.newPhonenumber,
     };
 
-    event.preventDefault();
-    if (props.persons.map((person) => person.name).includes(props.newName)) {
-      alert(`${props.newName} is already added to phonebook`);
+    const oldPerson = props.persons
+      .find((person) => newPerson.name === person.name)
+
+    if (oldPerson !== undefined) {
+      console.log('hello', oldPerson);
+      if (
+        window.confirm(`${oldPerson.newName} is already added to phonebook 
+          replace with new one`)
+      ) {
+        personServices.replace(oldPerson).then((response) => {
+          console.log(response);
+        });
+      }
     } else {
       personServices.create(newPerson).then((returnedPerson) => {
         props.setPersons(props.persons.concat(returnedPerson));
         props.setNewName('');
         props.setNewPhonenumber('');
+        props.setPersonAddedInfo('New person added')
+
+        setTimeout(() => {
+          props.setPersonAddedInfo('')
+        }, 2000);
       });
     }
   };

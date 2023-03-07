@@ -26,12 +26,23 @@ function App() {
       const names = countries.map((country) => country.name.common);
       console.log('Names: ', names);
 
-      const results = names.filter((country) => {
-        return country.includes(search);
+      const results = countries.filter((country) => {
+        return country.name.common.includes(search);
       });
 
-      console.log('results: ', results);
-      return results.map((result) => <ul>{result}</ul>)
+      if (results.length === 1) {
+        const result = results[0];
+        return (
+          <div>
+            <ul>Country: {result.name.common}</ul>
+            <ul>Capital: {result.capital}</ul>
+            <ul>Area: {result.area}</ul>
+            <ul>Flag: {result.flag}</ul>
+          </div>
+        );
+      } else {
+        return results.map((result) => <ul>{result.name.common}</ul>);
+      }
     } else if (countries === null) {
       return <p>Wait</p>;
     } else {
